@@ -3,6 +3,7 @@ package com.asimodabas.compose_notes
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -14,6 +15,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -40,6 +45,16 @@ class MainActivity : ComponentActivity() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
+            Image(
+                bitmap = ImageBitmap.imageResource(id = R.drawable.imagee),
+                contentDescription = null
+            )
+            Spacer(modifier = Modifier.padding(5.dp))
+            Image(
+                imageVector = ImageVector.vectorResource(id = R.drawable.ic_launcher_foreground),
+                contentDescription = null
+            )
+            Spacer(modifier = Modifier.padding(5.dp))
             Text(
                 modifier = Modifier
                     .background(color = Color.Red)
@@ -54,9 +69,10 @@ class MainActivity : ComponentActivity() {
             CustomText(text = "Custom Text")
             Spacer(modifier = Modifier.padding(5.dp))
             Row {
-                Text( modifier = Modifier
-                    .background(Color.Red)
-                    .padding(5.dp),
+                Text(
+                    modifier = Modifier
+                        .background(Color.Red)
+                        .padding(5.dp),
                     text = "Text 1",
                     color = Color.Black,
                     fontSize = 25.sp,
@@ -74,13 +90,15 @@ class MainActivity : ComponentActivity() {
                     fontSize = 25.sp,
                     fontWeight = FontWeight.Medium
                 )
-                }
+            }
             Spacer(modifier = Modifier.padding(5.dp))
             Button(onClick = {
                 println("Clicked Button")
-            }){
+            }) {
                 Text(text = "Button")
             }
+            Spacer(modifier = Modifier.padding(5.dp))
+
         }
 
         /*
