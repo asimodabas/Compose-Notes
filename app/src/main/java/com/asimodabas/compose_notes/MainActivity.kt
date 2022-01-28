@@ -7,11 +7,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,6 +19,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -49,6 +49,18 @@ class MainActivity : ComponentActivity() {
                 bitmap = ImageBitmap.imageResource(id = R.drawable.imagee),
                 contentDescription = null
             )
+            Spacer(modifier = Modifier.padding(5.dp))
+            var string = remember {
+                mutableStateOf("Add Text") }
+            TextField(
+                modifier = Modifier
+                    .background(color = Color.White)
+                    .padding(5.dp),
+                value = string.value,
+                onValueChange = {
+                    string.value = it
+                    //println(string)
+                })
             Spacer(modifier = Modifier.padding(5.dp))
             Image(
                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_launcher_foreground),
