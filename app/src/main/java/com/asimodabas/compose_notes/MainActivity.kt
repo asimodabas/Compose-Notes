@@ -8,6 +8,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,12 +30,19 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun mainScreen() {
+
+    var myString = remember { mutableStateOf("") }
+
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        CustomText(text = "Android")
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            CustomText(text = "Android")
+            Spacer(modifier = Modifier.padding(5.dp))
+            CustomTextField(string = myString.value) {
+                myString.value = it
+            }
         }
     }
 }
@@ -46,7 +55,7 @@ fun CustomText(text: String) {
             .clickable {
                 println("Clicked")
             }
-             // .background(color = Color.Black)
+            // .background(color = Color.Black)
             .padding(5.dp),
         text = text,
         color = Color.Red,
@@ -54,6 +63,12 @@ fun CustomText(text: String) {
         fontWeight = FontWeight.Medium,
         textAlign = TextAlign.Center
     )
+}
+
+@Composable
+fun CustomTextField(string: String, function: (String) -> Unit) {
+    TextField(value = string, onValueChange = function, modifier = Modifier.padding(5.dp))
+
 }
 
 @Preview(showBackground = true)
