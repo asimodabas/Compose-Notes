@@ -20,6 +20,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 class MainActivity : ComponentActivity() {
+
+    private val BASE_URL="https://raw.githubusercontent.com/"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -28,83 +31,9 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun mainScreen() {
-
-    var myString = remember { mutableStateOf("") }
-
-    Surface(modifier = Modifier.fillMaxSize()) {
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            CustomText(text = "Android")
-            Spacer(modifier = Modifier.padding(5.dp))
-            CustomTextField(string = myString.value) {
-                myString.value = it
-            }
-        }
-    }
-}
-
-
-@Composable
-fun CustomText(text: String) {
-    Text(
-        modifier = Modifier
-            .clickable {
-                println("Clicked")
-            }
-            // .background(color = Color.Black)
-            .padding(5.dp),
-        text = text,
-        color = Color.Red,
-        fontSize = 25.sp,
-        fontWeight = FontWeight.Medium,
-        textAlign = TextAlign.Center
-    )
-}
-
-@Composable
-fun CustomTextField(string: String, function: (String) -> Unit) {
-    TextField(value = string, onValueChange = function, modifier = Modifier.padding(5.dp))
-
-}
-
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     mainScreen()
 }
 
-/*
-
-    //Row
-    Row {
-        Text(
-            text = "Text 1",
-            color = Color.Black,
-            fontSize = 15.sp,
-            fontWeight = FontWeight.Bold)
-        Text(
-            text = "Text 2",
-            color = Color.Gray,
-            fontSize = 15.sp,
-            fontWeight = FontWeight.Medium)
-    }
-
-    //Box
-    Box() {
-        Text(
-            text = "Text 1",
-            color = Color.Black,
-            fontSize = 15.sp,
-            fontWeight = FontWeight.Bold)
-        Text(
-            text = "Text 2",
-            color = Color.Gray,
-            fontSize = 15.sp,
-            fontWeight = FontWeight.Medium)
-    }
-
-*/
