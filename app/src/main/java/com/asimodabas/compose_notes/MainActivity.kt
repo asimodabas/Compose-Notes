@@ -3,11 +3,17 @@ package com.asimodabas.compose_notes
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -43,16 +49,14 @@ fun mainScreen() {
         .create(CryptoAPI::class.java)
 
     val call = retrofit.getData()
-    call.enqueue(object : Callback<List<CryptoModel>>{
+    call.enqueue(object : Callback<List<CryptoModel>> {
         override fun onResponse(
             call: Call<List<CryptoModel>>,
             response: Response<List<CryptoModel>>
         ) {
-            if (response.isSuccessful){
+            if (response.isSuccessful) {
                 response.body()?.let {
-                    it.forEach {
-                        println(it.currency)
-                    }
+
                 }
             }
         }
@@ -68,9 +72,46 @@ fun mainScreen() {
 }
 
 @Composable
+fun CryList(cryptos: List<CryptoModel>) {
+    LazyColumn() {
+        items(cryptos) { crypto ->
+            CryptorRow(cryptoName = crypto)
+        }
+    }
+}
+
+@Composable
+fun CryptorRow(cryptoName: CryptoModel) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(color = MaterialTheme.colors.error)
+    ) {
+        Text(
+            text = cryptoName.currency,
+            style = MaterialTheme.typography.h5,
+            modifier = Modifier.padding(2.dp),
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            text = cryptoName.price,
+            style = MaterialTheme.typography.h6,
+            modifier = Modifier.padding(2.dp),
+            fontWeight = FontWeight.Bold
+        )
+
+    }
+}
+
+
+@Composable
 fun AppBar() {
     TopAppBar(contentPadding = PaddingValues(5.dp)) {
-        Text(text = "Crypto Tracking", fontSize = 25.sp)
+        Text(
+            text = "Crypto Tracking",
+            fontSize = 25.sp,
+            fontWeight = FontWeight.Bold
+        )
     }
 }
 
@@ -78,7 +119,7 @@ fun AppBar() {
 @Composable
 fun DefaultPreview() {
     ComposeNotesTheme {
-        mainScreen()
+        CryptorRow(cryptoName = CryptoModel("BTC", "123456"))
     }
 }
 
