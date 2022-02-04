@@ -9,6 +9,6 @@ interface CryptoAPI {
     //asimodabas/Crypto-Tracking/master/crypto.json
     //https://raw.githubusercontent.com/
     @GET("asimodabas/Crypto-Tracking/master/crypto.json")
-    fun getData():Call<List<CryptoModel>>
+    fun getData(): Call<List<CryptoModel>>
 
 }

@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun mainScreen() {
 
-    var cryptoModels  = remember { mutableStateListOf<CryptoModel>() }
+    var cryptoModels = remember { mutableStateListOf<CryptoModel>() }
 
     val BASE_URL = "https://raw.githubusercontent.com/"
 
