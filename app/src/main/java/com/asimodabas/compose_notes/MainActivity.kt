@@ -37,13 +37,19 @@ class MainActivity : ComponentActivity() {
         setContent {
             ComposeNotesTheme {
 
-                val viewModel : FlowViewModel by viewModels()
+                val viewModel: FlowViewModel by viewModels()
                 val counter = viewModel.countDownTimerFlow.collectAsState(initial = 10)
 
                 Surface(color = MaterialTheme.colors.background) {
-                    Box(modifier = Modifier.fillMaxSize()){
-                        Text(text = counter.value.toString(), fontSize = 20.sp, textAlign = TextAlign.Center, modifier = Modifier.align(
-                            Alignment.Center))
+                    Box(modifier = Modifier.fillMaxSize()) {
+                        Text(
+                            text = counter.value.toString(),
+                            fontSize = 20.sp,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.align(
+                                Alignment.Center
+                            )
+                        )
                     }
 
                 }

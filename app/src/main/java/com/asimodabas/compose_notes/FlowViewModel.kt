@@ -12,7 +12,7 @@ class FlowViewModel : ViewModel() {
         var counter = countDownFrom
 
         emit(countDownFrom)
-        while (counter>0){
+        while (counter > 0) {
 
             delay(1000)
             counter--
