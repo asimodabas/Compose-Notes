@@ -98,6 +98,5 @@ fun otherScreen() {
             Text(text = "Button")
         }
         Spacer(modifier = Modifier.padding(5.dp))
-
     }
 }

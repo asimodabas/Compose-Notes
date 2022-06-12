@@ -51,7 +51,6 @@ class MainActivity : ComponentActivity() {
                             )
                         )
                     }
-
                 }
                 //mainScreen()
             }
@@ -88,7 +87,6 @@ fun mainScreen() {
         override fun onFailure(call: Call<List<CryptoModel>>, t: Throwable) {
             t.printStackTrace()
         }
-
     })
 
     Scaffold(topBar = { AppBar() }) {
@@ -124,7 +122,6 @@ fun CryptorRow(cryptoName: CryptoModel) {
             modifier = Modifier.padding(2.dp),
             fontWeight = FontWeight.Bold
         )
-
     }
 }
 

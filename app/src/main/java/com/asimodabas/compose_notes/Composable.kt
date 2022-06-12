@@ -56,10 +56,8 @@ fun CustomText(text: String) {
 @Composable
 fun CustomTextField(string: String, function: (String) -> Unit) {
     TextField(value = string, onValueChange = function, modifier = Modifier.padding(5.dp))
-
 }
 /*
-
     //Row
     Row {
         Text(
@@ -87,5 +85,4 @@ fun CustomTextField(string: String, function: (String) -> Unit) {
             fontSize = 15.sp,
             fontWeight = FontWeight.Medium)
     }
-
 */
