@@ -27,9 +27,9 @@ class FlowViewModel : ViewModel() {
     }
 
     private fun collectInViewModel() {
-/*
+
         viewModelScope.launch {
-                countDownTimerFlow
+            countDownTimerFlow
                 .filter {
                     it % 2 == 0
                 }
@@ -39,10 +39,16 @@ class FlowViewModel : ViewModel() {
                 .collect() {
                     println("counter : $it")
                 }
+            countDownTimerFlow.collectLatest {
+                delay(2000)
+                println(it)
+            }
         }
-*/
+/*
         countDownTimerFlow.onEach {
             println(it)
         }.launchIn(viewModelScope)
+
+*/
     }
 }
