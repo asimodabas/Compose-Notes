@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -38,21 +39,48 @@ class MainActivity : ComponentActivity() {
             ComposeNotesTheme {
 
                 val viewModel: FlowViewModel by viewModels()
-                val counter = viewModel.countDownTimerFlow.collectAsState(initial = 10)
+                
+                SecondScreen(viewModel = viewModel)
 
-                Surface(color = MaterialTheme.colors.background) {
-                    Box(modifier = Modifier.fillMaxSize()) {
-                        Text(
-                            text = counter.value.toString(),
-                            fontSize = 20.sp,
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier.align(
-                                Alignment.Center
-                            )
-                        )
-                    }
+            }
+        }
+    }
+}
+
+@Composable
+fun firstScreen(viewModel: FlowViewModel){
+    val counter = viewModel.countDownTimerFlow.collectAsState(initial = 10)
+
+    Surface(color = MaterialTheme.colors.background) {
+        Box(modifier = Modifier.fillMaxSize()) {
+            Text(
+                text = counter.value.toString(),
+                fontSize = 20.sp,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.align(
+                    Alignment.Center
+                )
+            )
+        }
+    }
+}
+
+@Composable
+fun SecondScreen(viewModel: FlowViewModel){
+    val liveDataValue = viewModel.liveData.observeAsState()
+    val stateFlowValue = viewModel.stateFlow.collectAsState()
+    val sharedFlowValue = viewModel.sharedFlow.collectAsState(initial = "")
+
+    Surface(color = MaterialTheme.colors.background) {
+        Box(modifier = Modifier.fillMaxSize()) {
+            Column(modifier = Modifier.align(Alignment.Center)) {
+                Text(text = liveDataValue.value ?: "")
+                Button(onClick = {
+                    viewModel.changeLiveDataValue()
+                }) {
+                    Text(text = "Live Data Button")
+
                 }
-                //mainScreen()
             }
         }
     }
@@ -92,6 +120,7 @@ fun mainScreen() {
     Scaffold(topBar = { AppBar() }) {
         CryList(cryptos = cryptoModels)
     }
+
 }
 
 @Composable

@@ -1,5 +1,7 @@
 package com.asimodabas.compose_notes
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
@@ -39,16 +41,40 @@ class FlowViewModel : ViewModel() {
                 .collect() {
                     println("counter : $it")
                 }
+/*
             countDownTimerFlow.collectLatest {
                 delay(2000)
                 println(it)
             }
+*/
         }
 /*
         countDownTimerFlow.onEach {
             println(it)
         }.launchIn(viewModelScope)
-
 */
+    }
+
+    private val _liveData = MutableLiveData<String>("KotlinLiveData")
+    val liveData :LiveData<String> = _liveData
+
+    fun changeLiveDataValue(){
+        _liveData.value = "Live Data"
+    }
+
+    private val _stateFlow = MutableStateFlow("KotlinStateFlow")
+    val stateFlow = _stateFlow.asStateFlow()
+
+    private val _sharedFlow = MutableSharedFlow<String>()
+    val sharedFlow = _sharedFlow.asSharedFlow()
+
+    fun changeStateFlowValue(){
+        _stateFlow.value = "State Flow"
+    }
+
+    fun changeSharedFlowValue(){
+        viewModelScope.launch {
+        _sharedFlow.emit("Shared Flow")
+        }
     }
 }
